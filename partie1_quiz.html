@@ -127,7 +127,7 @@
     <div id="quizContainer"></div>
 
     <script>
- let timer;
+let timer;
 let score = 0;
 let currentQuestionIndex = 0;
 let questions = [];
@@ -137,18 +137,13 @@ const localQuestions = [
     { category: "18", difficulty: "medium", type: "multiple", question: "What does CPU stand for?", correct_answer: "Central Processing Unit", incorrect_answers: ["Central Process Unit", "Computer Personal Unit", "Central Processor Unit"] },
     { category: "19", difficulty: "hard", type: "multiple", question: "What is the derivative of sin(x)?", correct_answer: "cos(x)", incorrect_answers: ["sin(x)", "-sin(x)", "-cos(x)"] },
     { category: "21", difficulty: "easy", type: "boolean", question: "The Olympics are held every 6 years.", correct_answer: "False", incorrect_answers: ["True"] },
-    { category: "22", difficulty: "medium", type: "multiple", question: "Which is the longest river in the world?", correct_answer: "Nile", incorrect_answers: ["Amazon", "Yangtze", "Mississippi"] },
-    { category: "15", difficulty: "easy", type: "multiple", question: "Which video game series features the character Link?", correct_answer: "The Legend of Zelda", incorrect_answers: ["Final Fantasy", "Super Mario", "Metroid"] },
-    { category: "15", difficulty: "medium", type: "multiple", question: "What is the best-selling video game of all time?", correct_answer: "Minecraft", incorrect_answers: ["Tetris", "Grand Theft Auto V", "Super Mario Bros"] },
-    { category: "15", difficulty: "hard", type: "multiple", question: "In which year was the first PlayStation console released?", correct_answer: "1994", incorrect_answers: ["1996", "1992", "1998"] },
-    { category: "15", difficulty: "easy", type: "boolean", question: "Sonic the Hedgehog's first game was released in 1991.", correct_answer: "True", incorrect_answers: ["False"] },
-    { category: "15", difficulty: "medium", type: "multiple", question: "Which company developed the game 'Half-Life'?", correct_answer: "Valve", incorrect_answers: ["id Software", "Ubisoft", "Rockstar Games"] }
+    { category: "22", difficulty: "medium", type: "multiple", question: "Which is the longest river in the world?", correct_answer: "Nile", incorrect_answers: ["Amazon", "Yangtze", "Mississippi"] }
 ];
 
 function fetchQuiz() {
     document.getElementById("score").style.display = "none";
     document.getElementById("timer").style.display = "none";
-    let amount = document.getElementById("amount").value;
+    let amount = parseInt(document.getElementById("amount").value);
     let category = document.getElementById("category").value;
     let difficulty = document.getElementById("difficulty").value;
     let type = document.getElementById("type").value;
@@ -157,9 +152,8 @@ function fetchQuiz() {
         (category === "any" || q.category === category) &&
         (difficulty === "any" || q.difficulty === difficulty) &&
         (type === "any" || q.type === type)
-    );
+    ).slice(0, amount);
 
-    questions = questions.slice(0, amount);
     currentQuestionIndex = 0;
     score = 0;
     displayQuestion();
@@ -220,6 +214,16 @@ function startQuestionTimer() {
 
 function nextQuestion() {
     clearInterval(timer);
+    
+    let selectedOption = document.querySelector(`input[name="question${currentQuestionIndex}"]:checked`);
+    if (selectedOption) {
+        let userAnswer = selectedOption.value;
+        let correctAnswer = questions[currentQuestionIndex].correct_answer;
+        if (userAnswer === correctAnswer) {
+            score++;
+        }
+    }
+
     currentQuestionIndex++;
     displayQuestion();
 }
@@ -236,4 +240,5 @@ function endQuiz() {
     
 </body>
 </html>
+
 
