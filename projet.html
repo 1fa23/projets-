@@ -1,0 +1,116 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <title>Todo List</title>
+</head>
+<body>
+
+<style>
+    body {
+        background: #352f5b;
+    }
+    .container {
+        max-width: 400px;
+    }
+    input[type="text"],
+    input[type="text"]:focus {
+        color: #fff;
+        border: none;
+        background: rgba(0,0,0,0.2);
+        max-width: 400px;
+    }
+    .todos li {
+        background: #423a6f;
+    }
+    .delete {
+        cursor: pointer;
+    }
+</style>
+
+<div class="container">
+    <header class="text-center text-light my-4">
+        <h1 class="mb-4">Todo List</h1>
+        <form class="search">
+            <input class="form-control m-auto" type="text" id="search-input" placeholder="Search todos">
+        </form>
+    </header>
+
+    <ul class="list-group todos mx-auto text-light" id="todo-list">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>play mariokart</span>
+            <i class="far fa-trash-alt delete"></i>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>defeat ganon in zelda</span>
+            <i class="far fa-trash-alt delete"></i>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>make a veggie pie</span>
+            <i class="far fa-trash-alt delete"></i>
+        </li>
+    </ul>
+
+    <form class="add text-center my-4">
+        <label class="text-light">Add a new todo...</label>
+        <input class="form-control m-auto" type="text" id="add-input" name="add">
+    </form>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const addInput = document.getElementById("add-input");
+    const searchInput = document.getElementById("search-input");
+    const todoList = document.getElementById("todo-list");
+
+    function addTodo() {
+        const taskText = addInput.value.trim();
+        if (taskText === "") return;
+
+        const listItem = document.createElement("li");
+        listItem.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
+        listItem.innerHTML = `
+            <span>${taskText}</span>
+            <i class="far fa-trash-alt delete"></i>
+        `;
+
+        todoList.appendChild(listItem);
+        addInput.value = "";
+    }
+
+    function searchTodo() {
+        const searchText = searchInput.value.toLowerCase().trim();
+        const tasks = todoList.getElementsByTagName("li");
+        for (let task of tasks) {
+            const taskText = task.querySelector("span").textContent.toLowerCase();
+            task.style.display = taskText.includes(searchText) ? "flex" : "none";
+        }
+    }
+
+    function deleteTodo(event) {
+        if (event.target.classList.contains("delete")) {
+            event.target.parentElement.remove();
+        }
+    }
+
+    // Add task when pressing "Enter"
+    addInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            addTodo();
+        }
+    });
+
+    // Live search filter
+    searchInput.addEventListener("input", searchTodo);
+
+    // Delete task on click
+    todoList.addEventListener("click", deleteTodo);
+});
+</script>
+
+</body>
+</html>
