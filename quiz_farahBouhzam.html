@@ -127,7 +127,7 @@
     <div id="quizContainer"></div>
 
     <script>
-        let timer;
+       let timer;
 let score = 0;
 let currentQuestionIndex = 0;
 let questions = [];
@@ -178,7 +178,6 @@ function displayQuestion() {
         answerInput.type = "radio";
         answerInput.name = `question${currentQuestionIndex}`;
         answerInput.value = answer;
-        answerInput.onclick = () => checkAnswer(answer, q.correct_answer); // Check answer on selection
         answerLabel.appendChild(answerInput);
         answerLabel.innerHTML += answer;
         questionDiv.appendChild(answerLabel);
@@ -193,12 +192,6 @@ function displayQuestion() {
 
     quizContainer.appendChild(questionDiv);
     startQuestionTimer();
-}
-
-function checkAnswer(selected, correct) {
-    if (selected === correct) {
-        score++;
-    }
 }
 
 function startQuestionTimer() {
@@ -217,6 +210,13 @@ function startQuestionTimer() {
 
 function nextQuestion() {
     clearInterval(timer);
+
+    // Get selected answer
+    let selectedOption = document.querySelector(`input[name="question${currentQuestionIndex}"]:checked`);
+    if (selectedOption && selectedOption.value === questions[currentQuestionIndex].correct_answer) {
+        score++; // Score is incremented only when moving to the next question
+    }
+
     currentQuestionIndex++;
     displayQuestion();
 }
