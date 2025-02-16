@@ -127,7 +127,7 @@
     <div id="quizContainer"></div>
 
     <script>
-       let timer;
+let timer;
 let score = 0;
 let currentQuestionIndex = 0;
 let questions = [];
@@ -187,7 +187,7 @@ function displayQuestion() {
     let nextButton = document.createElement("button");
     nextButton.textContent = "Next Question";
     nextButton.classList.add("next-btn");
-    nextButton.onclick = nextQuestion;
+    nextButton.onclick = () => nextQuestion();
     questionDiv.appendChild(nextButton);
 
     quizContainer.appendChild(questionDiv);
@@ -210,11 +210,15 @@ function startQuestionTimer() {
 
 function nextQuestion() {
     clearInterval(timer);
-
+    
     // Get selected answer
     let selectedOption = document.querySelector(`input[name="question${currentQuestionIndex}"]:checked`);
-    if (selectedOption && selectedOption.value === questions[currentQuestionIndex].correct_answer) {
-        score++; // Score is incremented only when moving to the next question
+    if (selectedOption) {
+        let userAnswer = selectedOption.value;
+        let correctAnswer = questions[currentQuestionIndex].correct_answer;
+        if (userAnswer === correctAnswer) {
+            score++; // Score is updated only when the user selects the correct answer
+        }
     }
 
     currentQuestionIndex++;
