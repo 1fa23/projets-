@@ -1,0 +1,1 @@
+Pour exécuter les deux pages, j'ai installé l'extension Live Server. Lors de l'exécution, je clique sur "Open with Live Server", je choisis le fichier à exécuter, puis je retrouve la page souhaitée.
