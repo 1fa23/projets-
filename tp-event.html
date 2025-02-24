@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Manipulation de Vue</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="monapp">
+        <!-- Exercice 1 -->
+        <button @click="changerTitre">{{ titre }}</button>
+        
+        <!-- Exercice 2 -->
+        <div>
+            <button @click="incrementer">+</button>
+            <span>{{ compteur }}</span>
+            <button @click="decrementer">-</button>
+        </div>
+        
+        <!-- Exercice 3 -->
+        <div>
+            <input type="text" v-model="texte" @input="verifierTexte" placeholder="Entrez du texte" />
+            <p v-if="afficherMessage" style="color: red;">Veuillez ne pas inclure d'espaces.</p>
+        </div>
+    </div>
+
+    <script defer>
+        document.addEventListener("DOMContentLoaded", function() {
+            const appli = {
+                data() {
+                    return {
+                        titre: "Cliquez moi!",
+                        compteur: 0,
+                        texte: "",
+                        afficherMessage: false
+                    };
+                },
+                methods: {
+                    changerTitre() {
+                        this.titre = "Cliqué!";
+                    },
+                    incrementer() {
+                        this.compteur++;
+                    },
+                    decrementer() {
+                        this.compteur--;
+                    },
+                    verifierTexte() {
+                        this.afficherMessage = this.texte.includes(" ");
+                    }
+                }
+            };
+            
+            Vue.createApp(appli).mount("#monapp");
+        });
+    </script>
+</body>
+</html>

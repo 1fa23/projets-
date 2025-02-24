@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>Manipulation de vue</title>
+<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+<style>
+  .hidden {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<div id="monapp">
+  <!-- Exercice 4 -->
+  <div>
+    <!-- Boutons radio pour choisir la couleur -->
+    <ul type="disk">
+      <li>Couleur de la police :
+        <ul type="none">
+          <li>
+            <label>
+              <input type="radio" name="couleur" value="red" @change="updateCouleur" /> Rouge
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="couleur" value="blue" @change="updateCouleur" /> Bleu
+            </label>
+          </li>
+        </ul>
+      </li>
+
+      <!-- Case à cocher pour afficher/masquer le paragraphe -->
+      <li>
+        <label>
+          <input type="checkbox" @click="toggleAfficherParagraphe" /> Afficher/cacher le paragraphe ?
+        </label>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Paragraphe avec liaison dynamique de la couleur et de la visibilité -->
+  <p :style="{ color: couleur }" :class="{ hidden: !afficherParagraphe }">
+    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam pariatur mollitia et, 
+    inventore delectus. Doloribus laudantium maiores at necessitatibus ipsum distinctio?
+  </p>
+</div>
+
+<script>
+  const appli = {
+    data() {
+      return {
+        
+        couleur: 'black', 
+        
+        afficherParagraphe: true 
+      };
+    },
+    methods: {
+      // Met à jour la couleur du paragraphe en fonction du bouton radio sélectionné
+      updateCouleur(event) {
+        this.couleur = event.target.value;
+      },
+      // Bascule l'affichage du paragraphe
+      toggleAfficherParagraphe(event) {
+        this.afficherParagraphe = event.target.checked;
+      }
+    }
+  };
+
+  Vue.createApp(appli).mount("#monapp");
+</script>
+
+</body>
+</html>
