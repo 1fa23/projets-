@@ -1,6 +1,7 @@
 Voici la phrase réécrite de manière plus fluide et correcte :  
 
 > Si les produits ne s'affichent pas, réinitialisez le fichier JSON Server en tapant la commande suivante :  
-> `json-server --watch pieces-autos.json --port 3000`,  
-> après avoir changé de workspace pour `tp4-ecomm\src\data\pieces-auto`(place of piece-auto , pour le savoire faire copy path).
+> `json-server --watch pieces-autos.json --port 3000` apres npm install -g json-server
+,  
+> après avoir changé avec cd de workspace pour `tp4-ecomm\src\data`(place of piece-auto , pour le savoire faire copy path et supprimer piece-auto.json ).
 de meme pour npm install switch to tp4-ecomm
