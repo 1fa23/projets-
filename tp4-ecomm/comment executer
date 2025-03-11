@@ -1,4 +1,4 @@
-Voici la phrase réécrite de manière plus fluide et correcte :  
+
 
 > Si les produits ne s'affichent pas, réinitialisez le fichier JSON Server en tapant la commande suivante :  
 > `json-server --watch pieces-autos.json --port 3000` apres npm install -g json-server
